@@ -2,17 +2,13 @@ from abc import ABC, abstractmethod, abstractclassmethod, abstractstaticmethod, 
 from sxcui.operator import Operator
 
 
-class RegisterPage(object):
-    def __init__(self, cls: type):
-        self.cls = cls
-
-    def __get__(self, instance, owner):
-        return self.cls(instance.driver)
-
-
 class Page(metaclass=ABCMeta):
     def __init__(self, driver):
         self.driver = driver
+
+    def __getattr__(self, item):
+        if item == 'aaa':
+            return 123
 
     @abstractmethod
     def is_active(self):
