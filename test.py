@@ -7,9 +7,10 @@ from sxcui.element import Locator
 
 
 class BaiduPage(Page):
-    page_name = 'baidu_page'
-    search_input = Locator(By.ID, 'kw')
-    submit_button = Locator(By.ID, 'su')
+    # page_name = 'baidu_page'
+    # search_input = Locator(By.ID, 'kw')
+    # submit_button = Locator(By.ID, 'su')
+    elements_path = 'baidu_page.yaml'
 
     def search(self, text):
         self.search_input.clear_and_input(text)
@@ -32,7 +33,8 @@ if __name__ == '__main__':
     driver.implicitly_wait(30)
     operator = BaiduOperator(driver)
     operator.baidu_page.search('selenium')
-    print(operator.baidu_page.aaa)
+    # print(operator.baidu_page.aaa)
+    # operator.baidu_page
     import time
 
     time.sleep(1)

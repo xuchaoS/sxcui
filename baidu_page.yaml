@@ -1,0 +1,6 @@
+search_input:
+  by: id
+  locator: kw
+submit_button:
+  by: id
+  locator: su
