@@ -12,8 +12,14 @@ class Element(object):
         self.element.click()
 
     def input(self, text):
-        self.element.clear()
         self.element.send_keys(text)
+
+    def clear(self):
+        self.element.clear()
+
+    def clear_and_input(self, text):
+        self.clear()
+        self.input(text)
 
 
 class Locator(object):

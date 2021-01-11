@@ -2,18 +2,15 @@ from abc import ABC, abstractmethod, abstractclassmethod, abstractstaticmethod, 
 from sxcui.operator import Operator
 
 
-class PageMeta(type):
-    def __new__(mcs, name, bases, namespace):
-        cls = super().__new__(mcs, name, bases, namespace)
-        if name != 'Page':
-            Operator.pages[name] = cls
-            page_name = namespace.get('page_name', '')
-            if page_name:
-                Operator.pages[page_name] = cls
-        return cls
+class RegisterPage(object):
+    def __init__(self, cls: type):
+        self.cls = cls
+
+    def __get__(self, instance, owner):
+        return self.cls(instance.driver)
 
 
-class Page(metaclass=PageMeta):
+class Page(metaclass=ABCMeta):
     def __init__(self, driver):
         self.driver = driver
 
