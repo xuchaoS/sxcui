@@ -1,4 +1,6 @@
 import yaml
+import json
+import csv
 from abc import ABC, abstractmethod, abstractclassmethod, abstractstaticmethod, ABCMeta, abstractproperty
 
 from sxcui.element import Locator, Element
@@ -10,9 +12,19 @@ class Page(metaclass=ABCMeta):
 
     def __init__(self, driver):
         self.driver = driver
-        with open(self.elements_path) as f:
-            self.elements = yaml.load(f, Loader=yaml.FullLoader)
-
+        if self.elements_path.endswith('yaml'):
+            with open(self.elements_path) as f:
+                self.elements = yaml.load(f, Loader=yaml.FullLoader)
+        elif self.elements_path.endswith('json'):
+            with open(self.elements_path) as f:
+                self.elements = json.load(f)
+        elif self.elements_path.endswith('csv'):
+            with open(self.elements_path) as f:
+                reader = csv.DictReader(f)
+                self.elements = {}
+                for row in reader:
+                    self.elements[row['name']] = row
+            
     def __getattr__(self, item):
         if item in self.elements:
             print(item)

@@ -1,0 +1,3 @@
+name         ,by,locator,type
+search_input ,id,kw     ,input
+submit_button,id,su     ,button
